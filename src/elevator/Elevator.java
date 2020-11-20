@@ -1,46 +1,52 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package elevator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- *
- * @author user
- */
 public class Elevator {
 
     private boolean doorOpen;
-    private final double maxWeight = 1500;
-    private ArrayList<People> currentPeople = new ArrayList<People>();
-    private final int maxPeople = 13;
-    private final int maxFloor = 4;
-    private final int minFloor = 1;
+    private  double maxWeight;
+    private People[] currentPeople;
+    private  int maxPeople;
+    private  int maxFloor;
+    private  int minFloor;
     private int currentFloor;
-
-    public Elevator() {
-
+//    public Elevator(){
+//        
+//    }
+    public Elevator(double  maxWeight ,int maxPeople , int maxFloor , int minFloor) {
+        this.maxWeight = maxWeight;
+        this.maxPeople = maxPeople;
+        this.maxFloor = maxFloor;
+        this.minFloor = minFloor;
         this.currentFloor = 1;
         this.doorOpen = false;
+        this.currentPeople = new People[this.maxPeople];
     }
 
     public double getWeight() {
-        if (currentPeople.isEmpty()) {
-            return 0;
-        }
+//        if (currentPeople.length == 0) {
+//            return 0;
+//        }
         double weight = 0;
-        for (int i = 0; i < currentPeople.size(); i++) {
-            weight += currentPeople.get(i).getWeight();
+        for (int i = 0; i < currentPeople.length; i++) {
+            if (currentPeople[i] != null) {
+                weight += currentPeople[i].getWeight();
+            }
         }
         return weight;
     }
 
-    public String getPeopleInfo() {
-        return currentPeople.toString();
+    public int getPeopleInfo() {
+        int people = 0;
+        for (int i = 0; i < currentPeople.length; i++) {
+            if (currentPeople[i] != null) {
+                people++;
+            }
+        }
+        return people;
     }
 
     public boolean setFloor(int floor) {
@@ -53,25 +59,32 @@ public class Elevator {
     }
 
     public boolean increasePeople(String name, double weight) {
-        if (getWeight() > maxWeight || weight > maxWeight) {
+        if (Double.sum(getWeight(), weight) > maxWeight) { //การบวกค่า double ต้องใช้ คำสั่ง sum เข้ามาช่วย
             return false;
         }
-        if (currentPeople.size() >= maxPeople) {
+        if (getPeopleInfo() >= maxPeople) {
             return false;
         }
-        currentPeople.add(new People(name, weight));
+        //add people
+        for (int i = 0; i < currentPeople.length; i++) {
+            People p = currentPeople[i];
+            if (p == null) {
+                currentPeople[i] = new People(name, weight);
+                break; // ถ้าไม่ break มันจะ *13 ตามจำนวน array ที่เรากำหนดค่าไว้
+            }
+        }
         return true;
     }
 
     public boolean decreasePeople(String name) {
-        if (currentPeople.isEmpty()) {
+        if (getPeopleInfo() <= 0) {
             return false;
         }
 
-        for (int i = 0; i < currentPeople.size(); i++) {
-            People p = currentPeople.get(i);
-            if (p.getName().equals(name)) {
-                currentPeople.remove(i);
+        for (int i = 0; i < currentPeople.length; i++) {
+            People p = currentPeople[i];
+            if (p != null && p.getName().equals(name)) {
+                currentPeople[i] = null;
                 return true;
             }
         }
@@ -83,4 +96,6 @@ public class Elevator {
     public String toString() {
         return "Elevator{" + "doorOpen=" + doorOpen + ", maxWeight=" + maxWeight + ", currentWeight=" + getWeight() + ", currentPeople=" + getPeopleInfo() + ", maxPeople=" + maxPeople + ", maxFloor=" + maxFloor + ", minFloor=" + minFloor + ", currentFloor=" + currentFloor + '}';
     }
+
+   
 }
