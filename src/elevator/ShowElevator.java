@@ -33,13 +33,15 @@ public class ShowElevator {
                     FloorElevator();
                     break;
                 case 3:
-                    ToElevator();
+                    StatusElevator();
                     break;
                 case 4:
-                    NameElevator();
+                    DecreaseElevator();
                     break;
                 default:
-                    System.out.println("Input menu invalid, only 1 - 4 is accepted");
+                    System.out.println("------------------------------------------------");
+                    System.out.println("-- Input menu invalid, only 1 - 4 is accepted --");
+                    System.out.println("------------------------------------------------");
                     break;
             }
         }
@@ -47,7 +49,7 @@ public class ShowElevator {
 
     public void IncreaseElevator() {
         Scanner scanner = new Scanner(System.in);
-        //Elevator elevator = new Elevator(); //ตรงนี้ทำยังไงฮะ อยากเรียกใช้ method ที่อยู่คนละ class ต้องสร้าง obj ใหม่อย่างนี้มั้ยฮะ
+        //Elevator elevator = new Elevator(); 
         System.out.print("Enter First name => ");
         firstName = scanner.next();
         System.out.print("\nEnter Last name => ");
@@ -70,16 +72,18 @@ public class ShowElevator {
         selectFloor = scanner.nextInt();
         boolean setFloorSuccess = elevator.setFloor(selectFloor);
         if (!setFloorSuccess) {
-            System.out.println("Input floor invalid");
+            System.out.println("****************************");
+            System.out.println("*** Input floor invalid ***");
+            System.out.println("****************************");
         }
     }
 
-    public void ToElevator() {
+    public void StatusElevator() {
         //Elevator elevator = new Elevator();
         System.out.println(elevator.toString());
     }
 
-    public void NameElevator() {
+    public void DecreaseElevator() {
         Scanner scanner = new Scanner(System.in);
         //Elevator elevator = new Elevator();
         System.out.print("Enter First name => ");
@@ -89,7 +93,9 @@ public class ShowElevator {
         scanner.nextLine();
         boolean removeSuccess = elevator.decreasePeople(firstName + " " + lastName);
         if (!removeSuccess) {
-            System.out.println("Elevator is empty or Name for found");
+            System.out.println("-------------------------------------------");
+            System.out.println("--- Elevator is empty or Name for found ---");
+            System.out.println("-------------------------------------------");
         }
     }
 }
