@@ -1,4 +1,3 @@
-
 package elevator;
 
 import java.util.ArrayList;
@@ -7,16 +6,17 @@ import java.util.Arrays;
 public class Elevator {
 
     private boolean doorOpen;
-    private  double maxWeight;
+    private double maxWeight;
     private People[] currentPeople;
-    private  int maxPeople;
-    private  int maxFloor;
-    private  int minFloor;
+    private int maxPeople;
+    private int maxFloor;
+    private int minFloor;
     private int currentFloor;
 //    public Elevator(){
 //        
 //    }
-    public Elevator(double  maxWeight ,int maxPeople , int maxFloor , int minFloor) {
+
+    public Elevator(double maxWeight, int maxPeople, int maxFloor, int minFloor) {
         this.maxWeight = maxWeight;
         this.maxPeople = maxPeople;
         this.maxFloor = maxFloor;
@@ -39,7 +39,7 @@ public class Elevator {
         return weight;
     }
 
-    public int getPeopleInfo() {
+    public int getPeopleInfo() { //จำนวนคน
         int people = 0;
         for (int i = 0; i < currentPeople.length; i++) {
             if (currentPeople[i] != null) {
@@ -97,5 +97,4 @@ public class Elevator {
         return "Elevator{" + "doorOpen=" + doorOpen + ", maxWeight=" + maxWeight + ", currentWeight=" + getWeight() + ", currentPeople=" + getPeopleInfo() + ", maxPeople=" + maxPeople + ", maxFloor=" + maxFloor + ", minFloor=" + minFloor + ", currentFloor=" + currentFloor + '}';
     }
 
-   
 }
