@@ -50,7 +50,7 @@ public class Elevator {
     }
 
     public boolean setFloor(int floor) {
-        if (floor >= 1 && floor <= 4) {
+        if (floor >= this.minFloor && floor <= this.maxFloor) {
             currentFloor = floor;
             return true;
         } else {
